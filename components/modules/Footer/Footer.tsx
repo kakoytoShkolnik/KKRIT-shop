@@ -21,7 +21,7 @@ const Footer = () => {
                           <a href='tel:+79029609437'>+7 (902) 960-94-37</a>
                         </span>
                         <span>
-                          <a href='mailto:kkrit.merc@rt.ru'>kkrit.merc@rt.ru</a>
+                          <a href='mailto:kkrit.merc@gmail.com'>kkrit.merc@gmail.com</a>
                         </span>
                         {isMedia950 && <FooterLinks/>}
                     </div>
