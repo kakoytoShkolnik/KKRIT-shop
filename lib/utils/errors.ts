@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { loginCheckFx } from "@/api/auth"
+import { loginCheckFx, refreshTokenFx } from "@/api/auth"
 import { addProductToCartFx, deleteCartItemFx, getCartItemFx } from "@/api/cart"
 import { JWTError } from "@/constants/jwt"
 import { addProductsFromLsToCartFx } from "@/context/cart"
@@ -14,7 +14,7 @@ export const handleJWTError = async (
   ) => {
     if (errorName === JWTError.EXPIRED_JWT_TOKEN) {
         const auth = JSON.parse(localStorage.getItem('auth') as string)
-        const newTokens = {accessToken: ''}
+        const newTokens = await refreshTokenFx({ jwt: auth.refreshToken })
 
         if (repeatRequestAfterRefreshData) {
             const { repeatRequestMethodName, payload} = repeatRequestAfterRefreshData

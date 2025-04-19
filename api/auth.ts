@@ -57,7 +57,7 @@ export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
     }
 })
 
-export const refreshToken = createEffect(async ({ jwt }: {jwt: string}) => {
+export const refreshTokenFx = createEffect(async ({ jwt }: {jwt: string}) => {
     const { data } = await api.post('/api/users/refresh', { jwt })
 
     localStorage.setItem('auth', JSON.stringify(data))
