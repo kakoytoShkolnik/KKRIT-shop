@@ -15,9 +15,7 @@ import BuyersListItems from './BuyersListItems'
 import ContactsListItems from "./ContactsListItems"
 
 const Menu = () => {
-    const [showCatalogeList, setShowCatalogList] = useState(false)
-    const [showBuyersList, setShowBuyersList] = useState(false)
-    const [showContactList, setShowContactList] = useState(false)
+    const [activeListId, setActiveListId] = useState(0)
     const menuIsOpen = useUnit($menuIsOpen)
     const { lang, translations } = useLang()
     const pathname = usePathname()
@@ -32,27 +30,16 @@ const Menu = () => {
     const handleSwitchLangToRu = () => handleSwitchLang('ru')
     const handleSwitchLangToEn = () => handleSwitchLang('en')
 
-    const handleShowCatalogList = () => {
-        setShowCatalogList(true)
-        setShowBuyersList(false)
-        setShowContactList(false)
-    }
+    const handleShowCatalogList = () => setActiveListId(1)
 
-    const handleShowBuyersList = () => {
-      setShowCatalogList(false)
-      setShowBuyersList(true)
-      setShowContactList(false)
-  }
+    const handleShowBuyersList = () => setActiveListId(2)
 
-    const handleShowContactsList = () => {
-      setShowCatalogList(false)
-      setShowBuyersList(false)
-      setShowContactList(true)
-  }
+    const handleShowContactsList = () => setActiveListId(3)
 
     const handleCloseMenu = () => {
         removeOverflowHiddenFromBody()
         closeMenu()
+        setActiveListId(0)
     }
 
     const handleRedirectToCatalog = (path: string) => {
@@ -85,9 +72,9 @@ const Menu = () => {
           text: translations[lang].comparison.outerwear,
           href: '/catalog/cloth?offset=0&type=outerwear',
         },
-      ]
+    ]
     
-      const accessoriesLinks = [
+    const accessoriesLinks = [
         {
           id: 1,
           text: translations[lang].comparison.bags,
@@ -103,9 +90,9 @@ const Menu = () => {
           text: translations[lang].comparison.umbrella,
           href: '/catalog/accessories?offset=0&type=umbrella',
         },
-      ]
+    ]
     
-      const souvenirsLinks = [
+    const souvenirsLinks = [
         {
           id: 1,
           text: translations[lang].comparison['business-souvenirs'],
@@ -116,9 +103,9 @@ const Menu = () => {
           text: translations[lang].comparison['promotional-souvenirs'],
           href: '/catalog/souvenirs?offset=0&type=promotional-souvenirs',
         },
-      ]
+    ]
     
-      const officeLinks = [
+    const officeLinks = [
         {
           id: 1,
           text: translations[lang].comparison.notebook,
@@ -129,7 +116,7 @@ const Menu = () => {
           text: translations[lang].comparison.pen,
           href: '/catalog/office?offset=0&type=pen',
         },
-      ]
+    ]
 
     return (
         <nav className={`nav-menu ${menuIsOpen ? 'open' : 'close'}`}>
@@ -178,7 +165,7 @@ const Menu = () => {
                                 {translations[lang].main_menu.catalog}
                             </button>
                             <AnimatePresence>
-                                {showCatalogeList && (
+                                {activeListId === 1 && (
                                     <motion.ul 
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
@@ -269,7 +256,7 @@ const Menu = () => {
                           )}
                           {!isMedia640 && (
                             <AnimatePresence>
-                            {showBuyersList && (
+                            {activeListId === 2 && (
                               <motion.ul
                                 initial = {{ opacity: 0 }}
                                 animate = {{ opacity: 1 }}
@@ -303,7 +290,7 @@ const Menu = () => {
                         )}
                           {!isMedia640 && (
                             <AnimatePresence>
-                            {showContactList && (
+                            {activeListId === 3 && (
                               <motion.ul
                                 initial = {{ opacity: 0 }}
                                 animate = {{ opacity: 1 }}

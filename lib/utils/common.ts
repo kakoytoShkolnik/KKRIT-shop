@@ -1,5 +1,4 @@
 import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/context/auth"
-import { setShouldShowEmpty } from "@/context/cart"
 import { setCurrentProduct } from "@/context/goods"
 import { closeSearchModal, closeSizeTable, showQuickViewModal, showSizeTable } from "@/context/modals"
 import { setSizeTableSizes } from "@/context/sizeTable"

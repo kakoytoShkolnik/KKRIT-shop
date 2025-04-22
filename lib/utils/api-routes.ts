@@ -1,22 +1,21 @@
-import { Db, MongoClient, ObjectId } from "mongodb";
+import { Db, MongoClient, ObjectId } from 'mongodb'
 import jwt, { VerifyErrors } from 'jsonwebtoken'
-import { shuffle } from "./common";
-import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
-import clientPromise from "../mongodb";
+import bcrypt from 'bcryptjs'
+import { shuffle } from './common'
+import { NextResponse } from 'next/server'
 
 export const getDbAndReqBody = async (
-    clientPromise: Promise<MongoClient>,
-    req: Request | null
+  clientPromise: Promise<MongoClient>,
+  req: Request | null
 ) => {
-    const db = (await clientPromise).db(process.env.NEXT_PUBLIC_DB_NAME)
-  
-    if (req) {
-      const reqBody = await req.json()
-      return { db, reqBody }
-    }
-  
-    return { db }
+  const db = (await clientPromise).db(process.env.NEXT_PUBLIC_DB_NAME)
+
+  if (req) {
+    const reqBody = await req.json()
+    return { db, reqBody }
+  }
+
+  return { db }
 }
 
 export const getNewAndBestsellerGoods = async (db: Db, fieldName: string) => {
@@ -129,7 +128,7 @@ export const isValidAccessToken = async (token: string | undefined) => {
   return { status: 200 }
 }
 
-export const parseJwt = (token: string) => 
+export const parseJwt = (token: string) =>
   JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 
 export const getDataFromDBByCollection = async (
@@ -178,10 +177,10 @@ export const replaceProductsInCollection = async (
   }
 
   const user = await db
-   .collection('users')
-   .findOne({ email: parseJwt(token as string).email })
+    .collection('users')
+    .findOne({ email: parseJwt(token as string).email })
 
-  const items = (reqBody.items as { productId: string}[]).map((item) => ({
+  const items = (reqBody.items as { productId: string }[]).map((item) => ({
     userId: user?._id,
     ...item,
     productId: new ObjectId(item.productId),

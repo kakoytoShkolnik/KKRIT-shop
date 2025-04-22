@@ -1,11 +1,12 @@
+/* eslint-disable indent */
+import Link from "next/link"
+import Image from 'next/image'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { useLang } from "@/hooks/useLang"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { IProductsListItemProps } from "@/types/modules"
-import Link from "next/link"
-import Image from 'next/image'
 import ProductSubtitle from "@/components/elements/ProductSubtitle/ProductSubtitle"
-import styles from '@/styles/product-list-item/index.module.scss'
-import stylesForAd from '@/styles/ad/index.module.scss'
 import { addOverflowHiddenToBody, formatPrice, isItemInList } from "@/lib/utils/common"
 import ProductLabel from "./ProductLabel"
 import ProductItemActionBtn from "@/components/elements/ProductItemActionBtn/ProductItemActionBtn"
@@ -15,8 +16,10 @@ import { setCurrentProduct } from "@/context/goods"
 import { productsWithoutSizes } from "@/constants/product"
 import { useCartAction } from "@/hooks/useCartAction"
 import { addProductToCartBySizeTable } from "@/lib/utils/cart"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import { setIsAddToFavorites } from "@/context/favorites"
+import styles from '@/styles/product-list-item/index.module.scss'
+import stylesForAd from '@/styles/ad/index.module.scss'
+import { useFavoritesAction } from "@/hooks/useFavoritesAction"
 
 const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
     const { lang, translations } = useLang()
@@ -24,6 +27,11 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
     const isTitleForNew = title === translations[lang].main_page.new_title
     const {addToCartSpinner, setAddToCartSpinner, currentCartByAuth} = useCartAction()
     const isProductInCart = isItemInList(currentCartByAuth, item._id)
+    const {
+        addToFavoritesSpinner,
+        isProductInFavorites,
+        handleAddProductToFavorites,
+    } = useFavoritesAction(item)
 
     const handleShowQuickViewModal = () => {
         addOverflowHiddenToBody()
@@ -32,7 +40,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
     }
 
     const addToCart = () => {
-        //setIsAddToFavorites(false)
+        setIsAddToFavorites(false)
         addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
     }
 
@@ -96,8 +104,17 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
                     )}
                     <div className={styles.list__item__actions}>
                         <ProductItemActionBtn
+                         spinner = {addToFavoritesSpinner}
                          text={translations[lang].product.add_to_favorites}
-                         iconClass='actions__btn_favorite'
+                         iconClass={`${
+                            addToFavoritesSpinner
+                              ? 'actions__btn_spinner'
+                              : isProductInFavorites
+                                ? 'actions__btn_favorite_checked'
+                                : 'actions__btn_favorite'
+                         }`}
+            
+                         callback={handleAddProductToFavorites}
                         />
                         <ProductItemActionBtn
                          text={translations[lang].product.add_to_comparison}

@@ -5,7 +5,6 @@ import { Suspense, useState } from 'react'
 import HeadingWithCount from '@/components/elements/HeadingWithCount/HeadingWithCount'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
-import { useCartByAuth } from '@/hooks/useCartByAuth'
 import { useLang } from '@/hooks/useLang'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
 import { getCartItemFx } from '@/api/cart'
@@ -15,19 +14,23 @@ import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
-import { $shouldShowEmpty } from '@/context/cart'
+import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
 import styles from '@/styles/cart-page/index.module.scss'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
+import { loginCheckFx } from '@/api/auth'
+import { isUserAuth } from '@/lib/utils/common'
 
 const CartPage = () => {
     const cartSpinner = useUnit(getCartItemFx.pending)
-    const currentCartByAuth = useCartByAuth()
+    const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
     const { lang, translations } = useLang()
     const isMedia930 = useMediaQuery(930)
     const { getDefaultTextGenerator, getTextGenerator } = useBreadcrumbs('cart')
     const [isCorrectPromotionalCode, setIsCorrectPromotionalCode] =
         useState(false)
     const shouldShowEmpty = useUnit($shouldShowEmpty)
+    const loginCheckSpinner = useUnit(loginCheckFx.pending)
 
 
     return (
@@ -49,7 +52,9 @@ const CartPage = () => {
                     
                         <div className={styles.cart__inner}>
                             <div className={styles.cart__left}>
-                                {cartSpinner && (
+                                {(isUserAuth()
+                                    ? cartSpinner || loginCheckSpinner
+                                    : cartSpinner) && (
                                     <motion.ul
                                         {...basePropsForMotion}
                                         className={cartSkeletonStyles.skeleton}
