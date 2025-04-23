@@ -326,7 +326,3 @@ const SizeTable = () => {
 }
 
 export default SizeTable
-
-function setAddToFavoritesSpinner(arg0: boolean): void {
-  throw new Error("Function not implemented.")
-}

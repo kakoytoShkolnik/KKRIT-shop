@@ -1,3 +1,4 @@
+'use client'
 import { createDomain } from 'effector'
 import { ISelectedSizes } from '@/types/common'
 

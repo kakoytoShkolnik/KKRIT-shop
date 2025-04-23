@@ -100,6 +100,9 @@ export const closeAuthPopupWhenSomeModalOpened = (
 }
 
 export const isUserAuth = () => {
+  if (typeof window === 'undefined') {
+    return false; // Если код выполняется на сервере, возвращаем false
+  }
   const auth = JSON.parse(localStorage.getItem('auth') as string)
 
   if (!auth?.accessToken) {
@@ -111,6 +114,9 @@ export const isUserAuth = () => {
 }
 
 export const triggerLoginCheck = () => {
+  if (typeof window === 'undefined') {
+    return false; // Если код выполняется на сервере, возвращаем false
+  }
   if (!isUserAuth()) {
     return
   }

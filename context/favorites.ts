@@ -1,3 +1,4 @@
+'use client'
 import { handleJWTError } from "@/lib/utils/errors";
 import { IAddProductToCartFx } from "@/types/cart";
 import { IAddProductsFromLSToFavoriteFx, IDeleteFavoriteItemsFx, IFavoriteItem } from "@/types/favorites";

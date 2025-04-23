@@ -1,3 +1,4 @@
+'use client'
 import { singInFx, singUpFx } from "@/api/auth";
 import { ISignUpFx } from "@/types/authPopup";
 import { createDomain, sample } from "effector";

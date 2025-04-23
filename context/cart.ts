@@ -1,3 +1,4 @@
+'use client'
 import { addProductToCartFx, deleteCartItemFx, getCartItemFx, updateCartItemCountFx } from "@/api/cart";
 import { handleJWTError } from "@/lib/utils/errors";
 import { IaddProductsFromLsToCartFx, IAddProductToCartFx, ICartItem, IDeleteCartItemsFx, IUpdateCartItemCountFx } from "@/types/cart";
