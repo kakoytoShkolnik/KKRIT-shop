@@ -40,7 +40,7 @@ const MobileNavbar = () => {
                 >
                     {translations[lang].breadcrumbs.catalog}
                 </button>
-                <Link href='/favoritess' className='bten-reset mobile-navbar__btn'>
+                <Link href='/favorites' className='bten-reset mobile-navbar__btn'>
                     {!!currentFavoritesByAuth.length && <span className='not-empty not-empty-mobile-favorite' />} 
                     {translations[lang].breadcrumbs.favorites}
                 </Link>
