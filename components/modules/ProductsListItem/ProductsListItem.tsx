@@ -20,6 +20,7 @@ import { setIsAddToFavorites } from "@/context/favorites"
 import styles from '@/styles/product-list-item/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
 import { useFavoritesAction } from "@/hooks/useFavoritesAction"
+import { useComparisonAction } from "@/hooks/useComparisonAction"
 
 const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
     const { lang, translations } = useLang()
@@ -32,6 +33,12 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
         isProductInFavorites,
         handleAddProductToFavorites,
     } = useFavoritesAction(item)
+
+    const {
+        handleAddToComparison,
+        isProductInComparison,
+        addToComparisonSpinner
+    } = useComparisonAction(item)
 
     const handleShowQuickViewModal = () => {
         addOverflowHiddenToBody()
@@ -117,8 +124,16 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
                          callback={handleAddProductToFavorites}
                         />
                         <ProductItemActionBtn
+                         spinner = {addToComparisonSpinner}
                          text={translations[lang].product.add_to_comparison}
-                         iconClass='actions__btn_comparison'
+                         iconClass={`${
+                            addToComparisonSpinner
+                              ? 'actions__btn_spinner'
+                              : isProductInComparison
+                                ? 'actions__btn_comparison_checked'
+                                : 'actions__btn_comparison'
+                         }`}
+                         callback={handleAddToComparison}
                         />
                         {!isMedia800 && (
                             <ProductItemActionBtn

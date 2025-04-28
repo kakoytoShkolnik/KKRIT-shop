@@ -1,8 +1,48 @@
 'use client'
-import { singInFx, singUpFx } from "@/api/auth";
-import { ISignUpFx } from "@/types/authPopup";
-import { createDomain, sample } from "effector";
+import { createDomain, createEffect, sample } from "effector";
 import toast from "react-hot-toast";
+import { ISignUpFx } from "@/types/authPopup";
+import api from '../api/apiInstance'
+import { onAuthSuccess } from "@/lib/utils/auth";
+
+export const singUpFx = createEffect(
+  async ({ name, password, email }: ISignUpFx) => {
+      const { data } = await api.post('/api/users/signup', {
+          name,
+          password,
+          email,
+      })
+
+      if (data.warningMessage) {
+          toast.error(data.warningMessage)
+          return
+      }
+
+      onAuthSuccess('Регистрация прошла успешно!', data)
+
+      return data
+  }
+)
+
+export const singInFx = createEffect(async ({ email, password }: ISignUpFx) => {
+  const { data } = await api.post('/api/users/login', { email, password })
+
+  if (data.warningMessage) {
+      toast.error(data.warningMessage)
+      return
+  }
+
+  onAuthSuccess('Вход выполнен!', data)
+  return data
+})
+
+export const refreshTokenFx = createEffect(async ({ jwt }: {jwt: string}) => {
+  const { data } = await api.post('/api/users/refresh', { jwt })
+
+  localStorage.setItem('auth', JSON.stringify(data))
+
+  return data
+})
 
 const auth = createDomain()
 

@@ -1,10 +1,13 @@
 /* eslint-disable indent */
-import { loginCheckFx, refreshTokenFx } from "@/api/auth"
 import { addProductToCartFx, deleteCartItemFx, getCartItemFx } from "@/api/cart"
 import { JWTError } from "@/constants/jwt"
+import { refreshTokenFx } from "@/context/auth"
 import { addProductsFromLsToCartFx } from "@/context/cart"
+import { addProductsFromLSToComparisonFx, addProductToComparisonFx, deleteComparisonItemFx, getComparisonItemsFx } from "@/context/comparison"
 import { addProductsFromLSToFavoritesFx, addProductToFavoriteFx, deleteFavoriteItemFx, getFavoriteItemsFx } from "@/context/favorites"
+import { loginCheckFx } from "@/context/user"
 import { IaddProductsFromLsToCartFx, IAddProductToCartFx, IDeleteCartItemsFx } from "@/types/cart"
+import { IAddProductsFromLSToComparisonFx, IAddProductToComparisonFx, IDeleteComparisonItemsFx } from "@/types/comparison"
 import { IAddProductsFromLSToFavoriteFx } from "@/types/favorites"
 
 export const handleJWTError = async (
@@ -24,6 +27,25 @@ export const handleJWTError = async (
             switch (repeatRequestMethodName) {
                 case 'getCartItemsFx':
                     return getCartItemFx({
+                        jwt: newTokens.accessToken,
+                    })
+                case 'addProductToComparisonFx':
+                    return addProductToComparisonFx({
+                        ...(payload as IAddProductToComparisonFx),
+                        jwt: newTokens.accessToken,
+                    })
+                case 'getComparisonItemsFx': 
+                    return getComparisonItemsFx({
+                        jwt: newTokens.accessToken,
+                    })
+                case 'deleteComparisonItemFx':
+                    await deleteComparisonItemFx({
+                        ...(payload as IDeleteComparisonItemsFx),
+                        jwt: newTokens.accessToken,
+                    })
+                case 'addProductsFromLSToComparisonFx':
+                    return addProductsFromLSToComparisonFx({
+                        ...(payload as IAddProductsFromLSToComparisonFx),
                         jwt: newTokens.accessToken,
                     })
                 case 'addProductToCartFx':

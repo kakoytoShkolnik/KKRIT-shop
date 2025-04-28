@@ -15,10 +15,10 @@ import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useLang } from '@/hooks/useLang'
 import FavoritesList from '@/components/modules/FavoritesPage/FavoritesList'
 import { isUserAuth } from '@/lib/utils/common'
-import { loginCheckFx } from '@/api/auth'
 import { $favorites, $favoritesFromLS, $shouldShowEmptyFavorites } from '@/context/favorites'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
 import styles from '@/styles/favorites/index.module.scss'
+import { loginCheckFx } from '@/context/user'
 
 const FavoritesPage = () => {
   const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)

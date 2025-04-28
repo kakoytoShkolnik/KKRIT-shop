@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { handleSignIn } from '@/context/auth'
+import { handleSignIn, singInFx } from '@/context/auth'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { IAuthSideProps, IInputs } from '@/types/authPopup'
 import AuthPopupClose from './AuthPopupClose'
@@ -9,7 +9,6 @@ import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import { useLang } from '@/hooks/useLang'
 import { handleCloseAuthPopup } from '@/lib/utils/common'
-import { singInFx } from '@/api/auth'
 
 const AuthPopupLogin = ({ toggleAuth, isSideActive }: IAuthSideProps) => {
   const { lang, translations } = useLang()
