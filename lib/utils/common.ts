@@ -1,6 +1,6 @@
 import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/context/auth"
 import { setCurrentProduct } from "@/context/goods"
-import { closeSearchModal, closeSizeTable, showQuickViewModal, showSizeTable } from "@/context/modals"
+import { closeSearchModal, closeShareModal, closeSizeTable, showQuickViewModal, showSizeTable } from "@/context/modals"
 import { setSizeTableSizes } from "@/context/sizeTable"
 import { loginCheck } from "@/context/user"
 import { ICartItem } from "@/types/cart"
@@ -184,4 +184,93 @@ export const showCountMessage = (count: string, lang: string) => {
   }
 
   return lang === 'ru' ? 'товаров' : 'items'
+}
+
+export const checkOffsetParam = (offset: string | string[] | undefined) =>
+  offset && !isNaN(+offset) && +offset >= 0
+
+export const getSearchParamsUrl = () => {
+  const paramsString = window.location.search
+  const urlParams = new URLSearchParams(paramsString)
+
+  return urlParams
+}
+
+export const updateSearchParam = (
+  key: string,
+  value: string | number,
+  pathname: string
+) => {
+  const urlParams = getSearchParamsUrl()
+  urlParams.set(key, `${value}`)
+  const newPath = `${pathname}?${urlParams.toString()}`
+  window.history.pushState({ path: newPath }, '', newPath)
+}
+
+export const checkPriceParam = (price: number) =>
+  price && !isNaN(price) && price >= 0 && price <= 10000
+
+export const getCheckedArrayParam = (param: string) => {
+  try {
+    const sizesArr = JSON.parse(decodeURIComponent(param))
+
+    if (Array.isArray(sizesArr) && sizesArr.length) {
+      return sizesArr
+    }
+  } catch (error) {
+    return false
+  }
+}
+
+export const capitalizeFirstLetter = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
+
+export const getWatchedProductFromLS = () => {
+  let watchedProducts: IProduct[] = JSON.parse(
+    localStorage.getItem('watched') as string
+  )
+
+  if (!watchedProducts || !Array.isArray(watchedProducts)) {
+    watchedProducts = []
+  }
+
+  return watchedProducts
+}
+
+export const handleCloseShareModal = () => {
+  removeOverflowHiddenFromBody()
+  closeShareModal()
+}
+
+export const addScriptToHead = (src: string) => {
+  const script = document.createElement('script')
+  document.head.appendChild(script)
+
+  script.src = src
+}
+
+export const isValidAvatarImage = (image: File) => {
+  const allowedExtension = /^image\/(png|jpe?g|gif|bmp|webp)$/
+
+  if (!image) {
+    return false
+  }
+
+  const imageType = image.type
+
+  if (!allowedExtension.test(imageType)) {
+    toast.error(
+      `Недопустимый формат ${
+        imageType.split('/')[1]
+      }! Допускается только jpeg, jpg, png, gif, bmp и webp`
+    )
+    return false
+  }
+
+  if (Math.round(image.size / 1024) > 2000) {
+    toast.error('Вес картинки не должен превышать 2 МБ!')
+    return false
+  }
+
+  return true
 }

@@ -9,8 +9,8 @@ const ProductSubtitle = ({
     const { lang, translations } = useLang()
     const descriptionSlicePosition = lang === 'ru' ? 5: 2
     return(
-        <div className={`${styles.product_subtitle__subtitle} ${subtitleClassName}`}>
-            <div className={`${styles.product_subtitle__subtitle__rect} ${subtitleRectClassName}`} />
+        <div className={subtitleClassName}>
+            <div className={subtitleRectClassName} />
             <span>
                 {translations[lang].main_page.hero_description.slice(
                     0,

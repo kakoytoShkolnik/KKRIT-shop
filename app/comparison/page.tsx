@@ -1,5 +1,11 @@
 import ComparisonPage from "@/components/templates/ComparisonPage/ComparisonPage";
+import { Suspense } from "react";
 
 export default function Comparison() {
-  return <ComparisonPage />
+  
+  return (
+    <Suspense>
+      <ComparisonPage />
+    </Suspense>
+  )
 }

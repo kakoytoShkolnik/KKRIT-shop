@@ -1,22 +1,45 @@
-import { useCallback, useEffect } from "react"
-import { useCrumbText } from "./useCrumbText"
-//import { useLang } from "./useLang"
-import { usePageTitle } from "./usePageTitle"
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useCrumbText } from './useCrumbText'
+import { usePageTitle } from './usePageTitle'
+import { useLang } from './useLang'
+import { productCategories } from '@/constants/product'
 
 export const useBreadcrumbs = (page: string) => {
-    //const { lang, translations } = useLang()
-    const { crumbText } = useCrumbText(page)
-    const getDefaultTextGenerator = useCallback(() => crumbText, [crumbText])
-    const getTextGenerator = useCallback((param: string) => ({})[param], [])
-    usePageTitle(page)
+  const [dynamicTitle, setDynamicTitle] = useState('')
+  const { lang, translations } = useLang()
+  const pathname = usePathname()
+  const breadcrumbs = useRef<HTMLUListElement>(null)
+  const { crumbText } = useCrumbText(page)
+  const getDefaultTextGenerator = useCallback(() => crumbText, [crumbText])
+  const getTextGenerator = useCallback((param: string) => ({})[param], [])
+  usePageTitle(page, dynamicTitle)
 
-    useEffect(() => {
-        const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
-    
-        if (lastCrumb) {
-          lastCrumb.textContent = crumbText
-        }
-    }, [crumbText])
+  useEffect(() => {
+    const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
 
-    return { getDefaultTextGenerator, getTextGenerator }
+    if (lastCrumb) {
+      const productTypePathname = pathname.split(`/${page}/`)[1]
+
+      if (!productTypePathname) {
+        setDynamicTitle('')
+        lastCrumb.textContent = crumbText
+        return
+      }
+
+      /*if (!productCategories.some((item) => item === productTypePathname)) {
+        return
+      }*/
+
+      const text = (
+        translations[lang][
+          page === 'comparison' ? 'comparison' : 'breadcrumbs'
+        ] as { [index: string]: string }
+      )[productTypePathname]
+      setDynamicTitle(text)
+      lastCrumb.textContent = text
+    }
+  }, [breadcrumbs, crumbText, lang, pathname, translations, page])
+
+  return { getDefaultTextGenerator, getTextGenerator, breadcrumbs }
 }
