@@ -1,12 +1,12 @@
 /* eslint-disable indent */
-import { addProductToCartFx, deleteCartItemFx, getCartItemFx } from "@/api/cart"
+import { addProductToCartFx, deleteCartItemFx, getCartItemsFx } from "@/context/cart"
 import { JWTError } from "@/constants/jwt"
 import { refreshTokenFx } from "@/context/auth"
-import { addProductsFromLsToCartFx } from "@/context/cart"
+import { addProductsFromLSToCartFx } from "@/context/cart/"
 import { addProductsFromLSToComparisonFx, addProductToComparisonFx, deleteComparisonItemFx, getComparisonItemsFx } from "@/context/comparison"
 import { addProductsFromLSToFavoritesFx, addProductToFavoriteFx, deleteFavoriteItemFx, getFavoriteItemsFx } from "@/context/favorites"
-import { loginCheckFx } from "@/context/user"
-import { IaddProductsFromLsToCartFx, IAddProductToCartFx, IDeleteCartItemsFx } from "@/types/cart"
+import { loginCheckFx } from "@/context/users"
+import { IAddProductsFromLsToCartFx, IAddProductToCartFx, IDeleteCartItemsFx } from "@/types/cart"
 import { IAddProductsFromLSToComparisonFx, IAddProductToComparisonFx, IDeleteComparisonItemsFx } from "@/types/comparison"
 import { IAddProductsFromLSToFavoriteFx } from "@/types/favorites"
 
@@ -26,7 +26,7 @@ export const handleJWTError = async (
 
             switch (repeatRequestMethodName) {
                 case 'getCartItemsFx':
-                    return getCartItemFx({
+                    return getCartItemsFx({
                         jwt: newTokens.accessToken,
                     })
                 case 'addProductToComparisonFx':
@@ -54,8 +54,8 @@ export const handleJWTError = async (
                         jwt: newTokens.accessToken,
                     })
                 case 'addProductsFromLsToCartFx':
-                    return addProductsFromLsToCartFx({
-                        ...(payload as IaddProductsFromLsToCartFx),
+                    return addProductsFromLSToCartFx({
+                        ...(payload as IAddProductsFromLsToCartFx),
                         jwt: newTokens.accessToken,
                     })
                 case 'deleteCartItemFx':
@@ -91,4 +91,4 @@ export const handleJWTError = async (
         }
     }
     
-  }
+}

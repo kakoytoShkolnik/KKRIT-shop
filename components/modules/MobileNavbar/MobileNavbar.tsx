@@ -1,15 +1,15 @@
 'use client'
 import Link from "next/link"
 import { closeCatalogMenu,
-     closeMenu, 
-     openCatalogMenu, 
-     openMenu } from "@/context/modals"
+    closeMenu, 
+    openCatalogMenu, 
+    openMenu } from "@/context/modals"
 import { useLang } from "@/hooks/useLang"
 import { addOverflowHiddenToBody } from "@/lib/utils/common"
 import CatalogMenu from "../Header/CatalogMenu"
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
-import { $cart, $cartFromLs } from "@/context/cart"
-import { $favorites, $favoritesFromLS } from "@/context/favorites"
+import { $cart, $cartFromLs } from "@/context/cart/state"
+import { $favorites, $favoritesFromLS } from "@/context/favorites/state"
 
 const handleOpenMenu = () => {
     addOverflowHiddenToBody()

@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useMemo, useState } from "react"
 import DeleteItemBtn from "@/components/elements/DeleteCartItemBtn/DeleteCartItemBtn"
 import { basePropsForMotion } from "@/constants/motion"
-import { $cart, $cartFromLs, addProductToCart } from "@/context/cart"
+import { addProductToCart } from "@/context/cart"
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
 import { useProductDelete } from "@/hooks/useProductDelete"
 import { IComparisonItem } from "@/types/comparison"
@@ -16,6 +16,7 @@ import { loadOneProduct } from '@/context/goods'
 import { productsWithoutSizes } from '@/constants/product'
 import { IProduct } from '@/types/common'
 import { addCartItemToLS } from '@/lib/utils/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 
 const ComparisonItem = ({ item }: { item: IComparisonItem }) => {
     const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)

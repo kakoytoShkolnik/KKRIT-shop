@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react'
 import { UseGoodsByAuth } from '@/types/common'
-import { $isAuth } from '@/context/auth'
+import { $isAuth } from '@/context/auth/state'
 
 export const useGoodsByAuth = <T>(
   storeAsync: UseGoodsByAuth<T>,

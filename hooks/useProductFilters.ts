@@ -1,11 +1,15 @@
-'use client'
-import { $products, loadProductsByFilter, loadProductsByFilterFx } from "@/context/goods";
-import { checkOffsetParam, getSearchParamsUrl, updateSearchParam } from "@/lib/utils/common";
-import { SearchParams } from "@/types/catalog";
-import { useUnit } from "effector-react";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useUnit } from 'effector-react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { loadProductsByFilter, loadProductsByFilterFx } from '@/context/goods'
+import {
+    checkOffsetParam,
+    getSearchParamsUrl,
+    updateSearchParam,
+} from '@/lib/utils/common'
+import { SearchParams } from '@/types/catalog'
 import styles from '@/styles/catalog/index.module.scss'
+import { $products } from '@/context/goods/state'
 
 export const useProductFilters = (
     searchParams: SearchParams,
@@ -27,43 +31,43 @@ export const useProductFilters = (
         urlParams.delete('offset')
 
         if (!isValidOffset) {
-            loadProductsByFilter({
-              limit: 12,
-              offset: 0,
-              additionalParam: urlParams.toString(),
-              isCatalog,
-              category,
-            })
-
-            updateSearchParam('offset', 0, pathname)
-            setCurrentPage(0)
-            return
-        }
-
         loadProductsByFilter({
-            limit: 12 * +(searchParams.offset || 0) + 12,
-            offset: +(searchParams.offset || 0) * 12,
+            limit: 12,
+            offset: 0,
             additionalParam: urlParams.toString(),
             isCatalog,
             category,
         })
-      
+
+        updateSearchParam('offset', 0, pathname)
+        setCurrentPage(0)
+        return
+        }
+
+        loadProductsByFilter({
+        limit: 12 * +(searchParams.offset || 0) + 12,
+        offset: +(searchParams.offset || 0) * 12,
+        additionalParam: urlParams.toString(),
+        isCatalog,
+        category,
+        })
+
         setCurrentPage(+(searchParams.offset || 0))
     }, [])
 
     const handlePageChange = ({ selected }: { selected: number }) => {
         const urlParams = getSearchParamsUrl()
-    
+
         urlParams.delete('offset')
-    
+
         loadProductsByFilter({
-          limit: 12 * selected + 12,
-          offset: selected * 12,
-          additionalParam: urlParams.toString(),
-          isCatalog,
-          category,
+        limit: 12 * selected + 12,
+        offset: selected * 12,
+        additionalParam: urlParams.toString(),
+        isCatalog,
+        category,
         })
-    
+
         updateSearchParam('offset', selected, pathname)
         setCurrentPage(selected)
     }
@@ -81,18 +85,18 @@ export const useProductFilters = (
 
     const handleApplyFiltersWithSizes = (sizes: string[]) => {
         updateSearchParam(
-          'sizes',
-          encodeURIComponent(JSON.stringify(sizes)),
-          pathname
+        'sizes',
+        encodeURIComponent(JSON.stringify(sizes)),
+        pathname
         )
         handlePageChange({ selected: 0 })
     }
 
     const handleApplyFiltersWithColors = (sizes: string[]) => {
         updateSearchParam(
-          'colors',
-          encodeURIComponent(JSON.stringify(sizes)),
-          pathname
+        'colors',
+        encodeURIComponent(JSON.stringify(sizes)),
+        pathname
         )
         handlePageChange({ selected: 0 })
     }
@@ -100,10 +104,10 @@ export const useProductFilters = (
     const handleApplyFiltersBySort = (sort: string) => {
         const urlParams = getSearchParamsUrl()
         const offset = urlParams.get('offset')
-    
+
         updateSearchParam('sort', sort, pathname)
         handlePageChange({
-          selected: checkOffsetParam(offset as string) ? +(offset || 0) : 0,
+        selected: checkOffsetParam(offset as string) ? +(offset || 0) : 0,
         })
     }
 
@@ -131,5 +135,5 @@ export const useProductFilters = (
         handleApplyFiltersWithSizes,
         handleApplyFiltersWithColors,
         handleApplyFiltersBySort,
-      }
+    }
 }

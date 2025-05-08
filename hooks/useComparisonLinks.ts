@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { getComparisonItemsFx } from '@/context/comparison'
 import { useGoodsByAuth } from './useGoodsByAuth'
 import { useLang } from './useLang'
-import { $comparison, $comparisonFromLs } from '@/context/comparison'
+import { $comparison, $comparisonFromLs } from '@/context/comparison/state'
 
 export const useComparisonLinks = () => {
   const currentComparisonByAuth = useGoodsByAuth($comparison, $comparisonFromLs)

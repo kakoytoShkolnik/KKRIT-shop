@@ -32,9 +32,9 @@ const Breadcrumbs = ({
         const href = '/' + asPathNestedRoutes.slice(0, idx + 1).join('/')
 
         return {
-            href,
-            textGenerator: getTextGenerator(param, searchParams.getAll('')),
-            text: getDefaultTextGenerator(subpath, href),
+          href,
+          textGenerator: getTextGenerator(param, searchParams.getAll('')),
+          text: getDefaultTextGenerator(subpath, href),
         }
       })
 

@@ -7,12 +7,13 @@ import styles from '@/styles/catalog/index.module.scss'
 import SortSelect from "./SortSelect";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useUnit } from "effector-react";
-import { $colorsOptions, $sizesOptions, setColors, setColorsOptions, setFiltersPopup, setSizes, setSizesOptions } from "@/context/catalog";
+import { setColors, setColorsOptions, setFiltersPopup, setSizes, setSizesOptions } from "@/context/catalog";
 import { motion } from "framer-motion";
 import { basePropsForMotion } from "@/constants/motion";
 import SelectInfoItem from "./SelectInfoItem";
 import FiltersPopup from "./FiltersPopup/FiltersPopup";
 import { addOverflowHiddenToBody } from "@/lib/utils/common";
+import { $colorsOptions, $sizesOptions } from "@/context/catalog/state";
 
 const CatalogFilters = ({
     handleApplyFiltersWithPrice,

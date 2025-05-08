@@ -3,7 +3,7 @@ import Link from "next/link"
 import { forwardRef } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
-import { getCartItemFx } from "@/api/cart"
+import { getCartItemsFx } from "@/context/cart"
 import { withClickOutside } from "@/components/hocs/withClickOutside"
 import { useLang } from "@/hooks/useLang"
 import { IWrappedComponentProps } from "@/types/hocs"
@@ -12,13 +12,13 @@ import { useTotalPrice } from "@/hooks/useTotalPrice"
 import { useUnit } from "effector-react"
 import { formatPrice } from "@/lib/utils/common"
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
-import { $cart, $cartFromLs } from "@/context/cart"
+import { $cart, $cartFromLs } from "@/context/cart/state"
 
 const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     ({ open, setOpen }, ref) => {
         const { lang, translations } = useLang()
         const handleShowPopup = () => setOpen(true)
-        const spinner = useUnit(getCartItemFx.pending)
+        const spinner = useUnit(getCartItemsFx.pending)
         const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
         const { animatedPrice } = useTotalPrice()
 

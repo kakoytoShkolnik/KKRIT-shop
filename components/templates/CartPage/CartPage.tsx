@@ -8,22 +8,22 @@ import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { useLang } from '@/hooks/useLang'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
-import { getCartItemFx } from '@/api/cart'
+import { getCartItemsFx } from '@/context/cart'
 import { basePropsForMotion } from '@/constants/motion'
 import CartList from '@/components/modules/CartPage/CartList'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
-import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart'
+import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart/state'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
 import styles from '@/styles/cart-page/index.module.scss'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { isUserAuth } from '@/lib/utils/common'
-import { loginCheckFx } from '@/context/user'
+import { loginCheckFx } from '@/context/users'
 
 const CartPage = () => {
-    const cartSpinner = useUnit(getCartItemFx.pending)
+    const cartSpinner = useUnit(getCartItemsFx.pending)
     const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
     const { lang, translations } = useLang()
     const isMedia930 = useMediaQuery(930)

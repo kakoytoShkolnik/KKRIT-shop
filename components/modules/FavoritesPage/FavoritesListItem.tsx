@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from 'next/image'
 import { IFavoriteItem } from "@/types/favorites";
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth";
-import { $cart, $cartFromLs, addProductToCart } from "@/context/cart";
+import { addProductToCart } from "@/context/cart";
 import DeleteItemBtn from "@/components/elements/DeleteCartItemBtn/DeleteCartItemBtn";
 import AddToCartIcon from "@/components/elements/AddToCartIcon/AddToCartIcon";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -13,6 +13,7 @@ import { deleteProductFromLS, formatPrice, isUserAuth } from "@/lib/utils/common
 import { deleteProductFromFavorites, setFavoritesFromLS, setShouldShowEmptyFavorites } from "@/context/favorites";
 import styles from '@/styles/favorites/index.module.scss'
 import { useProductDelete } from "@/hooks/useProductDelete";
+import { $cart, $cartFromLs } from "@/context/cart/state";
 
 const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
     const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)

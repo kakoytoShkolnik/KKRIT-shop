@@ -1,4 +1,4 @@
-import { loginCheck } from '@/context/user';
+import { loginCheck } from '@/context/users';
 import { useEffect, useState } from 'react';
 
 export const useIsUserAuth = () => {

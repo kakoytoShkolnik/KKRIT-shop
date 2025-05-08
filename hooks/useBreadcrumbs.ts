@@ -27,9 +27,9 @@ export const useBreadcrumbs = (page: string) => {
         return
       }
 
-      /*if (!productCategories.some((item) => item === productTypePathname)) {
-        return
-      }*/
+      // if (!productCategories.some((item) => item === productTypePathname)) {
+      //   return
+      // }
 
       const text = (
         translations[lang][

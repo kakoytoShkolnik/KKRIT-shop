@@ -7,7 +7,7 @@ import { formatPrice, showCountMessage } from '@/lib/utils/common'
 import { IOrderInfoBlockProps } from '@/types/modules'
 import styles from '@/styles/order-block/index.module.scss'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
-import { $cart, $cartFromLs } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 
 const OrderInfoBlock = ({
     isCorrectPromotionalCode,

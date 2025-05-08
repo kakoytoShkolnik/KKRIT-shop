@@ -6,7 +6,7 @@ import { addProductToFavorites, setIsAddToFavorites } from '@/context/favorites'
 import { productsWithoutSizes } from '@/constants/product'
 import { handleShowSizeTable, isUserAuth } from '@/lib/utils/common'
 import { addFavoriteItemToLS } from '@/lib/utils/favorites'
-import { $favorites, $favoritesFromLS } from '@/context/favorites'
+import { $favorites, $favoritesFromLS } from '@/context/favorites/state'
 
 export const useFavoritesAction = (product: IProduct) => {
     const [addToFavoritesSpinner, setAddToFavoritesSpinner] = useState(false)

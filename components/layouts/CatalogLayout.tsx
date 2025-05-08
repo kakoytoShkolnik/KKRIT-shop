@@ -10,12 +10,10 @@ const CatalogLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main>
-      <Suspense>
         <Breadcrumbs
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
         />
-      </Suspense>
         <section className={styles.catalog}>
             <div className='container'>{children}</div>
         </section>

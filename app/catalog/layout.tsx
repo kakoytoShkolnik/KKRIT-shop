@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import CatalogLayout from '../../components/layouts/CatalogLayout'
 
 export const metadata = {
@@ -9,5 +10,9 @@ export default function ComparisonRootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <CatalogLayout>{children}</CatalogLayout>
+  return (
+    <Suspense>
+      <CatalogLayout>{children}</CatalogLayout>
+    </Suspense>
+  )
 }

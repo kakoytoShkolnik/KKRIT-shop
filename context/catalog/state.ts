@@ -1,18 +1,20 @@
 'use client'
-import { ICatalogCategoryOptions, IColorOption, ISizeOption } from "@/types/catalog";
-import { createDomain } from "effector";
-
-export const catalog = createDomain()
-
-export const setCatalogCategoryOptions =
-  catalog.createEvent<Partial<ICatalogCategoryOptions>>()
-export const setSizesOptions = catalog.createEvent<ISizeOption[]>()
-export const setColorsOptions = catalog.createEvent<IColorOption[]>()
-export const updateSizesOptionBySize = catalog.createEvent<string>()
-export const updateColorsOptionByCode = catalog.createEvent<string>()
-export const setColors = catalog.createEvent<string[]>()
-export const setSizes = catalog.createEvent<string[]>()
-export const setFiltersPopup = catalog.createEvent<boolean>()
+import {
+  ICatalogCategoryOptions,
+  ISizeOption,
+  IColorOption,
+} from '@/types/catalog'
+import {
+  catalog,
+  setCatalogCategoryOptions,
+  setSizesOptions,
+  updateSizesOptionBySize,
+  setColorsOptions,
+  updateColorsOptionByCode,
+  setSizes,
+  setColors,
+  setFiltersPopup,
+} from '.'
 
 export const $catalogCategoryOptions = catalog
   .createStore<ICatalogCategoryOptions>({})
@@ -35,11 +37,11 @@ export const $sizesOptions = catalog
 
 export const $colorsOptions = catalog
   .createStore<IColorOption[]>([
-    { id: 1, colorCode: 'purpure', checked: false, colorText: ''},
-    { id: 2, colorCode: 'yellow', checked: false, colorText: ''},
-    { id: 3, colorCode: 'orange', checked: false, colorText: ''},
-    { id: 4, colorCode: 'black', checked: false, colorText: ''},
-    { id: 5, colorCode: 'white', checked: false, colorText: ''},
+    { id: 1, colorCode: 'purpure', checked: false, colorText: '' },
+    { id: 2, colorCode: 'yellow', checked: false, colorText: '' },
+    { id: 3, colorCode: 'orange', checked: false, colorText: '' },
+    { id: 4, colorCode: 'black', checked: false, colorText: '' },
+    { id: 5, colorCode: 'white', checked: false, colorText: '' },
   ])
   .on(setColorsOptions, (_, options) => options)
   .on(updateColorsOptionByCode, (state, color) =>

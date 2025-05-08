@@ -5,7 +5,7 @@ import { IProduct } from '@/types/common'
 import { useGoodsByAuth } from './useGoodsByAuth'
 import { addComparisonItemToLS } from '@/lib/utils/comparison'
 import { isUserAuth } from '@/lib/utils/common'
-import { $comparison, $comparisonFromLs } from '@/context/comparison'
+import { $comparison, $comparisonFromLs } from '@/context/comparison/state'
 
 export const useComparisonAction = (product: IProduct) => {
   const [addToComparisonSpinner, setAddToComparisonSpinner] = useState(false)

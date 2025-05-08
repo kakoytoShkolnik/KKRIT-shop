@@ -1,4 +1,5 @@
 import ComparisonLayout from "@/components/layouts/ComparisonLayout"
+import { Suspense } from "react"
 
 export const metadata = {
   title: 'ККРИТ | Сравнение товаров',
@@ -9,5 +10,9 @@ export default function ComparisonRootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <ComparisonLayout>{children}</ComparisonLayout>
+  return (
+    //<Suspense>
+      <ComparisonLayout>{children}</ComparisonLayout>
+    //</Suspense>
+  )
 }

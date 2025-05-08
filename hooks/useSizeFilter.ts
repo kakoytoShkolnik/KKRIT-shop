@@ -1,9 +1,10 @@
 import { useUnit } from "effector-react"
 import { useLang } from "./useLang"
-import { $sizes, $sizesOptions, setSizes, setSizesOptions, updateSizesOptionBySize } from "@/context/catalog"
+import { setSizes, setSizesOptions, updateSizesOptionBySize } from "@/context/catalog"
 import { useEffect } from "react"
 import { getCheckedArrayParam, getSearchParamsUrl } from "@/lib/utils/common"
 import { allowedSizes } from "@/constants/product"
+import { $sizes, $sizesOptions } from "@/context/catalog/state"
 
 export const useSizeFilter = (
     handleApplyFiltersWithSizes: (arg0: string[]) => void

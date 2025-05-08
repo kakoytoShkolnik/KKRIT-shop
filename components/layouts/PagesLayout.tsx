@@ -3,22 +3,28 @@ import { Toaster } from "react-hot-toast"
 import { useUnit } from "effector-react"
 import { Next13ProgressBar } from 'next13-progressbar'
 import { 
-    $showQuickViewModal, 
-    $showSizeTable, 
     closeQuickViewModal
 } from "@/context/modals"
 import Layout from "./Layout"
-import { closeSizeTableByCheck, handleCloseAuthPopup, removeOverflowHiddenFromBody } from "@/lib/utils/common"
-import { $openAuthPopup } from "@/context/auth"
+import { closeSizeTableByCheck, handleCloseAuthPopup, handleCloseShareModal, removeOverflowHiddenFromBody } from "@/lib/utils/common"
+import { $openAuthPopup } from "@/context/auth/state"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import CookieAlert from "../modules/CookieAlert/CookieAlert"
+import { $shareModal, $showQuickViewModal, $showSizeTable } from "@/context/modals/state"
+import '@/context/goods/init'
+import '@/context/auth/init'
+import '@/context/cart/init'
+import '@/context/comparison/init'
+import '@/context/favorites/init'
+import '@/context/users/init'
 
 const PagesLayout = ({ children }: {children: React.ReactNode }) => {
     const [cookieAlertOpen, setCookieAlertOpen] = useState(false)
     const showQuickViewModal = useUnit($showQuickViewModal)
     const showSizeTable = useUnit($showSizeTable)
     const openAuthPopup = useUnit($openAuthPopup)
+    const shareModal = useUnit($shareModal)
 
     const handleCloseQuickViewModal = () => {
         removeOverflowHiddenFromBody()
@@ -37,7 +43,7 @@ const PagesLayout = ({ children }: {children: React.ReactNode }) => {
     return (
             <html lang="en">
                 <body>
-                    <Next13ProgressBar height='4px' color='#9466ff' showOnShallow/>
+                        <Next13ProgressBar height='4px' color='#9466ff' showOnShallow/>
                     <Layout>{children}</Layout>
                     <div 
                      className={`quick-view-modal-overlay ${
@@ -56,6 +62,12 @@ const PagesLayout = ({ children }: {children: React.ReactNode }) => {
                       openAuthPopup ? 'overlay-active' : ''
                      }`}
                      onClick={handleCloseAuthPopup}
+                    />
+                    <div
+                     className={`share-overlay ${
+                        shareModal ? 'overlay-active' : ''
+                     }`}
+                     onClick={handleCloseShareModal}
                     />
                     {cookieAlertOpen && (
                         <motion.div

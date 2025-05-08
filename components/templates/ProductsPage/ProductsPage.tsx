@@ -13,6 +13,8 @@ import HeadingWithCount from '@/components/elements/HeadingWithCount/HeadingWith
 import { useEffect } from 'react';
 import { setCatalogCategoryOptions } from '@/context/catalog';
 import CatalogFilters from '@/components/modules/CatalogFilters/CatalogFilters';
+import { useWatchedProducts } from '@/hooks/useWatchedProducts';
+import WatchedProducts from '@/components/modules/WatchedProducts/WatchedProducts';
 
 const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
     const { lang, translations } = useLang()
@@ -27,7 +29,8 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
         handleApplyFiltersWithColors,
         handleApplyFiltersBySort,
     } = useProductFilters(searchParams, pageName, pageName === 'catalog')
-
+    const { watchedProducts } = useWatchedProducts()
+    
     useEffect(() => {
         switch (pageName) {
             case 'catalog':
@@ -192,6 +195,9 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
                     onPageChange={handlePageChange}
                 />
             </div>
+            {!!watchedProducts.items?.length && (
+                <WatchedProducts watchedProducts={watchedProducts} />
+            )}
         </>
     )
 }

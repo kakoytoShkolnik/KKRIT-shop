@@ -14,20 +14,20 @@ import {
 } from '@/lib/utils/common';
 import CartPopup from './CartPopup/CartPopup';
 import HeaderProfile from './HeaderProfile';
-import { $isAuth } from '@/context/auth';
+import { $isAuth } from '@/context/auth/state';
 import { useEffect } from 'react';
-import { $user, loginCheckFx } from '@/context/user';
+import { loginCheckFx } from '@/context/users';
 import { 
-    $cart,
-    $cartFromLs,
-    addProductsFromLsToCart, 
+    addProductsFromLSToCart, 
     setCartFromLS,
     setShouldShowEmpty 
 } from '@/context/cart';
 import { setLang } from '@/context/lang';
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth';
-import { $favorites, $favoritesFromLS, addProductsFromLSToFavorites, setFavoritesFromLS, setShouldShowEmptyFavorites } from '@/context/favorites';
-import { $comparison, $comparisonFromLs, addProductsFromLSToComparison, setComparisonFromLS, setShouldShowEmptyComparison } from '@/context/comparison';
+import { addProductsFromLSToFavorites, setFavoritesFromLS, setShouldShowEmptyFavorites } from '@/context/favorites';
+import { addProductsFromLSToComparison, setComparisonFromLS, setShouldShowEmptyComparison } from '@/context/comparison';
+import { $favorites, $favoritesFromLS } from '@/context/favorites/state';
+import { $comparison, $comparisonFromLs } from '@/context/comparison/state';
 
 
 const Header = () => {
@@ -116,7 +116,7 @@ const Header = () => {
             )
 
             if (cartFromLS && Array.isArray(cartFromLS)) {
-                addProductsFromLsToCart({
+                addProductsFromLSToCart({
                   jwt: auth.accessToken,
                   cartItems: cartFromLS,
                 })
