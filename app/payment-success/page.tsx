@@ -41,7 +41,7 @@ export default function Favorites() {
 
             if (paymentData.metadata && Object.values(paymentData.metadata).some((item) => !!item)) {
                 const recipientData = Object.values(paymentData.metadata)
-                .filter((item) => !!item && typeof 'string').join(', ')
+                .filter((item) => !!item && typeof item === 'string').join(', ')
 
                 description = `${description} Данные получателя: ${recipientData}`
             }
