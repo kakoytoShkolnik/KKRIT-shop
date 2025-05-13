@@ -1,6 +1,6 @@
 'use client'
 import { IOrderDetailsValues, IPickUpPointAddressData } from "@/types/order";
-import { getPickUpPointByCityFx, order, setCashPaymentTb, setChosenCourierAddressData, setChosenPickupAddressData, setCourierAddressData, setCourierTab, setMapInstance, setOnlinePaymentTb, setOrderDetailsValues, setPickupTab, setScrollToRequiredBlock, setShouldLoadPickUpPointData, setShouldShowCourierAddressData } from ".";
+import { getPickUpPointByCityFx, order, setCashPaymentTb, setChosenCourierAddressData, setChosenPickupAddressData, setCourierAddressData, setCourierTab, setMapInstance, setOnlinePaymentTb, setOrderDetailsValues, setPickupTab, setShouldLoadPickUpPointData, setShouldShowCourierAddressData } from ".";
 
 export const $pickUpPointDataByCity = order
  .createStore<IPickUpPointAddressData[]>([])
@@ -47,10 +47,6 @@ export const $cashPaymentTab = order
   .createStore<boolean>(false)
   .on(setCashPaymentTb, (_, value) => value)
 
-export const $scrollToRequiredBlock = order
-  .createStore<boolean>(false)
-  .on(setScrollToRequiredBlock, (_, value) => value)
-  
 export const $orderDetailsValues = order
   .createStore<IOrderDetailsValues>({} as IOrderDetailsValues)
   .on(setOrderDetailsValues, (_, value) => value)

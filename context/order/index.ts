@@ -21,7 +21,6 @@ export const setChosenPickupAddressData =
 export const setCourierAddressData = order.createEvent<IPickUpPointAddressData>()
 export const setOnlinePaymentTb = order.createEvent<boolean>()
 export const setCashPaymentTb = order.createEvent<boolean>()
-export const setScrollToRequiredBlock = order.createEvent<boolean>()
 export const makePayment = order.createEvent<IMakePaymentFx>()
 export const setOrderDetailsValues = order.createEvent<IOrderDetailsValues>()
 

@@ -11,9 +11,9 @@ import { $cart, $cartFromLs } from '@/context/cart/state'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useUnit } from 'effector-react'
-import { $chosenCourierAddressData, $chosenPickupAddressData, $onlinePaymentTab, $orderDetailsValues, $pickupTab, $scrollToRequiredBlock } from '@/context/order/state'
+import { $chosenCourierAddressData, $chosenPickupAddressData, $onlinePaymentTab, $orderDetailsValues, $pickupTab } from '@/context/order/state'
 import toast from 'react-hot-toast'
-import { makePayment, makePaymentFx, setScrollToRequiredBlock } from '@/context/order'
+import { makePayment, makePaymentFx } from '@/context/order'
 
 const OrderInfoBlock = ({
     isCorrectPromotionalCode,
@@ -28,7 +28,6 @@ const OrderInfoBlock = ({
     const chosenCourierAddressData = useUnit($chosenCourierAddressData)
     const chosenPickupAddressData = useUnit($chosenPickupAddressData)
     const paymentSpinner = useUnit(makePaymentFx.pending)
-    const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
     const checkboxRef = useRef() as MutableRefObject<HTMLInputElement>
     const priceWithDiscount = isCorrectPromotionalCode
         ? formatPrice(Math.round(animatedPrice - animatedPrice * 0.3))
@@ -56,8 +55,8 @@ const OrderInfoBlock = ({
          !chosenCourierAddressData.address_line1 &&
          !chosenPickupAddressData.address_line1
         ) {
-            //const orderBlock = document.querySelector('.order-block') as HTMLLIElement
-            setScrollToRequiredBlock(!scrollToRequiredBlock)
+            const orderBlock = document.querySelector('.order-block') as HTMLLIElement
+            scrollToBlock(orderBlock)
             toast.error('Нужно выбрать адрес!')
             return
         }
@@ -66,7 +65,7 @@ const OrderInfoBlock = ({
             const detailsBlock = document.querySelector(
                 '.details-block'
             ) as HTMLLIElement
-            setScrollToRequiredBlock(!scrollToRequiredBlock)
+            scrollToBlock(detailsBlock)
             return
         }
 
