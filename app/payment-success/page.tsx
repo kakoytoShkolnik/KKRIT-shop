@@ -40,10 +40,15 @@ export default function Favorites() {
             let description = paymentData.description
 
             if (paymentData.metadata && Object.values(paymentData.metadata).some((item) => !!item)) {
-                const recipientData = Object.values(paymentData.metadata)
-                .filter((item) => !!item && typeof item === 'string').join(', ')
+                const recipientData = [
+                    paymentData.metadata.name_label,
+                    paymentData.metadata.surname_label,
+                    paymentData.metadata.phone_label,
+                    paymentData.metadata.email_label,
+                    paymentData.metadata.message_label,
+                ]
 
-                description = `${description} Данные получателя: ${recipientData}`
+                description = `${description} Данные получателя: ${recipientData.join(', ')}`
             }
 
             paymentNotifyFx({ email: user.email, message: description })
