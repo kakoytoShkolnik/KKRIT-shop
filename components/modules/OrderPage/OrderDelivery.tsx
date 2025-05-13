@@ -9,7 +9,7 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import OrderTitle from "./OrderTitle"
 import styles from '@/styles/order/index.module.scss'
 import TabControls from "./TabControls"
-import { setCourierTab, setMapInstance, setPickupTab, setShouldShowCourierAddressData } from "@/context/order"
+import { setCourierTab, setMapInstance, setPickupTab } from "@/context/order"
 import { motion } from "framer-motion"
 import { basePropsForMotion } from "@/constants/motion"
 import { getGeolocationFx, setUserGeolocation } from "@/context/users"
@@ -173,7 +173,7 @@ const OrderDelivery = () => {
     //@ts-ignore
     ttSearchBox.on('tomtom.searchbox.resultselected', (e) =>
       handleResultSelection(e, searchMarkersManager, map),
-      setShouldShowCourierAddressData(false)
+      //setShouldShowCourierAddressData(false)
     )
     ttSearchBox.on('tomtom.searchbox.resultscleared', () =>
       handleResultClearing(searchMarkersManager, map, userGeolocation)

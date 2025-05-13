@@ -5,7 +5,7 @@ import { useLang } from "@/hooks/useLang";
 import { IAddressesListProps, IPickUpPointAddressData } from "@/types/order";
 import { $chosenPickupAddressData, $pickUpPointDataByCity, $shouldLoadPickUpPointData } from "@/context/order/state";
 import { useTTMap } from "@/hooks/useTTMap";
-import { getPickUpPointByCityFx, setChosenPickupAddressData, setShouldLoadPickUpPointData } from "@/context/order";
+import { getPickUpPointByCityFx, setChosenPickupAddressData, setShouldLoadPickUpPointData, setShouldShowCourierAddressData } from "@/context/order";
 import PickUpAddressItem from "./PickUpAddressItem";
 import styles from '@/styles/order/index.module.scss'
 
@@ -25,7 +25,7 @@ const AddressesList = ({
     const handleChosenAddressData = (data: Partial<IPickUpPointAddressData>) => {
         setShouldLoadPickUpPointData(false)
         setChosenPickupAddressData(data)
-        //setShouldShowCourierAddressData(false)
+        setShouldShowCourierAddressData(false)
     }
 
     return (
