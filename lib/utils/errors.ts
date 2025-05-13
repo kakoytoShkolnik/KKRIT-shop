@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { addProductToCartFx, deleteCartItemFx, getCartItemsFx } from "@/context/cart"
+import { addProductToCartFx, deleteAllFromCartFx, deleteCartItemFx, getCartItemsFx } from "@/context/cart"
 import { JWTError } from "@/constants/jwt"
 import { refreshTokenFx } from "@/context/auth"
 import { addProductsFromLSToCartFx } from "@/context/cart/"
@@ -9,6 +9,8 @@ import { loginCheckFx } from "@/context/users"
 import { IAddProductsFromLsToCartFx, IAddProductToCartFx, IDeleteCartItemsFx } from "@/types/cart"
 import { IAddProductsFromLSToComparisonFx, IAddProductToComparisonFx, IDeleteComparisonItemsFx } from "@/types/comparison"
 import { IAddProductsFromLSToFavoriteFx } from "@/types/favorites"
+import { makePaymentFx } from "@/context/order"
+import { IMakePaymentFx } from "@/types/order"
 
 export const handleJWTError = async (
     errorName: string,
@@ -48,11 +50,22 @@ export const handleJWTError = async (
                         ...(payload as IAddProductsFromLSToComparisonFx),
                         jwt: newTokens.accessToken,
                     })
-                case 'addProductToCartFx':
-                    return addProductToCartFx({
-                        ...(payload as IAddProductToCartFx),
+                case 'makePaymentFx':
+                    makePaymentFx({
+                        ...(payload as IMakePaymentFx),
                         jwt: newTokens.accessToken,
                     })
+                    break
+                case 'deleteComparisonItemFx':
+                    await deleteComparisonItemFx({
+                        ...(payload as IDeleteComparisonItemsFx),
+                        jwt: newTokens.accessToken,
+                    })
+                case 'deleteAllFromCartFx':
+                    deleteAllFromCartFx({
+                        jwt: newTokens.accessToken,
+                    })
+                    break
                 case 'addProductsFromLsToCartFx':
                     return addProductsFromLSToCartFx({
                         ...(payload as IAddProductsFromLsToCartFx),

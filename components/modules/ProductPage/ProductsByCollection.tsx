@@ -29,7 +29,7 @@ const ProductsByCollection = ({ collection }: { collection: string }) => {
         })
     },[])
 
-    console.log(products)
+    //console.log(products)
 
     if (!products.items?.length) {
         return null

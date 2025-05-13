@@ -3,7 +3,7 @@ import toast from "react-hot-toast"
 import { ICartItem } from "@/types/cart"
 import { IProduct } from "@/types/common"
 import { handleShowSizeTable, idGenerator, isUserAuth } from "./common"
-import { addProductToCart, setCartFromLS, setShouldShowEmpty } from "@/context/cart"
+import { addProductToCart, deleteAllFromCart, setCartFromLS, setShouldShowEmpty } from "@/context/cart"
 import { productsWithoutSizes } from "@/constants/product"
 
 export const addItemToCart = (
@@ -130,3 +130,9 @@ export const updateCartItemCountInLS = (cartItemId: string, count: number) => {
 
 export const countWholeCartItemsAmount = (cart: ICartItem[]) => 
   cart.reduce((defaultCount, item) => defaultCount + +item.count, 0)
+
+export const handleDeleteAllFromCart = (jwt: string) => {
+  deleteAllFromCart({ jwt })
+
+  localStorage.setItem('cart', JSON.stringify([]))
+}
