@@ -48,7 +48,7 @@ export default function Favorites() {
                     paymentData.metadata.message_label,
                 ]
 
-                description = `${description} Данные получателя: ${recipientData.join(', ')}`
+                description = `${description}\nДанные получателя: ${recipientData.join(', ')}`
             }
 
             paymentNotifyFx({ email: user.email, message: description })
