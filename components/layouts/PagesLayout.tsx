@@ -2,11 +2,12 @@
 import { Toaster } from "react-hot-toast"
 import { useUnit } from "effector-react"
 import { Next13ProgressBar } from 'next13-progressbar'
+import { usePathname, useRouter } from "next/navigation"
 import { 
     closeQuickViewModal
 } from "@/context/modals"
 import Layout from "./Layout"
-import { closeSizeTableByCheck, handleCloseAuthPopup, handleCloseShareModal, removeOverflowHiddenFromBody } from "@/lib/utils/common"
+import { closeSizeTableByCheck, handleCloseAuthPopup, handleCloseShareModal, isUserAuth, removeOverflowHiddenFromBody } from "@/lib/utils/common"
 import { $openAuthPopup } from "@/context/auth/state"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
@@ -19,13 +20,42 @@ import '@/context/comparison/init'
 import '@/context/favorites/init'
 import '@/context/users/init'
 import '@/context/order/init'
+import '@/context/profile/init'
+import { loginCheckFx } from "@/context/users"
 
 const PagesLayout = ({ children }: {children: React.ReactNode }) => {
     const [cookieAlertOpen, setCookieAlertOpen] = useState(false)
+    const [shouldShowContent, setShouldShowContent] = useState(false)
     const showQuickViewModal = useUnit($showQuickViewModal)
     const showSizeTable = useUnit($showSizeTable)
     const openAuthPopup = useUnit($openAuthPopup)
     const shareModal = useUnit($shareModal)
+    const protectedRoutes = ['/profile']
+    const pathname = usePathname()
+    const router = useRouter()
+    
+    useEffect(() => {
+        if (protectedRoutes.includes(pathname)) {
+            if (!isUserAuth()) {
+                setShouldShowContent(false)
+                router.push('/')
+                return
+            }
+
+            handleLoadProtectedRoute()
+            return
+        }
+
+        setShouldShowContent(true)
+    }, [pathname])
+
+    const handleLoadProtectedRoute = async () => {
+        const auth = JSON.parse(localStorage.getItem('auth') as string)
+
+        await loginCheckFx({ jwt: auth.accessToken })
+
+        setShouldShowContent(true)
+    }
 
     const handleCloseQuickViewModal = () => {
         removeOverflowHiddenFromBody()
@@ -44,8 +74,8 @@ const PagesLayout = ({ children }: {children: React.ReactNode }) => {
     return (
             <html lang="en">
                 <body>
-                        <Next13ProgressBar height='4px' color='#9466ff' showOnShallow/>
-                    <Layout>{children}</Layout>
+                    <Next13ProgressBar height='4px' color='#9466ff' showOnShallow/>
+                    {shouldShowContent && <Layout>{children}</Layout>}
                     <div 
                      className={`quick-view-modal-overlay ${
                       showQuickViewModal ? 'overlay-active' : ''

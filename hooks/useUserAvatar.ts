@@ -11,7 +11,7 @@ export const useUserAvatar = () => {
       setSrc(user.image)
       return
     }
- })
+  })
 
-  return { src }
+  return { src, alt: user.name}
 }

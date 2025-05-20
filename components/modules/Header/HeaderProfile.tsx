@@ -12,7 +12,7 @@ const HeaderProfile = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     ({ open, setOpen }, ref) => {
         const handleTogglePopup = () => setOpen(!open)
         const handleLogout = useUserLogout()
-        const { src } = useUserAvatar()
+        const { src, alt } = useUserAvatar()
         const { lang, translations } = useLang()
 
         return(
@@ -22,8 +22,8 @@ const HeaderProfile = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                  onClick={handleTogglePopup}
                 >
                     <Image
-                     src={src ? src : '/img/user.svg'}
-                     alt={''}
+                     src={src ? src : '/img/profile.svg'}
+                     alt={alt ? alt : 'profile'}
                      width={24}
                      height={24}
                     />
