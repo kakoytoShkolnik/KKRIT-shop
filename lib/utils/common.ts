@@ -1,5 +1,5 @@
 import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/context/auth"
-import { setCurrentProduct } from "@/context/goods"
+import { resetProductBySearch, setCurrentProduct } from "@/context/goods"
 import { closeSearchModal, closeShareModal, closeSizeTable, showQuickViewModal, showSizeTable } from "@/context/modals"
 import { setSizeTableSizes } from "@/context/sizeTable"
 import { loginCheck } from "@/context/users"
@@ -29,6 +29,7 @@ export const getWindowWidth = () => {
 export const handleCloseSearchModal = () => {
   closeSearchModal()
   removeOverflowHiddenFromBody()
+  resetProductBySearch()
 }
 
 export const shuffle = <T>(array: T[]) => {
