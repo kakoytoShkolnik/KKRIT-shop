@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import CookieAlert from "../modules/CookieAlert/CookieAlert"
 import { $shareModal, $showQuickViewModal, $showSizeTable } from "@/context/modals/state"
+import { loginCheckFx } from "@/context/users"
 import '@/context/goods/init'
 import '@/context/auth/init'
 import '@/context/cart/init'
@@ -21,7 +22,7 @@ import '@/context/favorites/init'
 import '@/context/users/init'
 import '@/context/order/init'
 import '@/context/profile/init'
-import { loginCheckFx } from "@/context/users"
+import '@/context/passwordRestore/init'
 
 const PagesLayout = ({ children }: {children: React.ReactNode }) => {
     const [cookieAlertOpen, setCookieAlertOpen] = useState(false)

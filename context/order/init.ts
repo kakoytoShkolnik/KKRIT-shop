@@ -1,5 +1,10 @@
 import { sample } from "effector";
-import { getPickUpPointByCityFx, getPickUpPointByCity, makePayment, makePaymentFx } from ".";
+import { 
+  getPickUpPointByCityFx, 
+  getPickUpPointByCity, 
+  makePayment, 
+  makePaymentFx 
+} from ".";
 
 sample({
   clock: getPickUpPointByCity,

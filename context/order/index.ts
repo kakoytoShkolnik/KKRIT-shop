@@ -1,6 +1,12 @@
 'use client'
 import { createDomain } from "effector";
-import { IGetPickUpPointByCityFx, IMakePaymentFx, IOrderDetailsValues, IPaymentNotifyFx, IPickUpPointAddressData } from "@/types/order";
+import { 
+  IGetPickUpPointByCityFx, 
+  IMakePaymentFx, 
+  IOrderDetailsValues, 
+  IPaymentNotifyFx, 
+  IPickUpPointAddressData 
+} from "@/types/order";
 import api from '@/api/apiInstance'
 import toast from "react-hot-toast";
 import { handleJWTError } from "@/lib/utils/errors";
