@@ -140,7 +140,7 @@ const SearchModal = () => {
                             >
                                 <div className='search-modal__results__item__left'>
                                 <Image
-                                    src={item.images[0]}
+                                    src={item.images[0].url}
                                     alt={item.name}
                                     width={100}
                                     height={100}

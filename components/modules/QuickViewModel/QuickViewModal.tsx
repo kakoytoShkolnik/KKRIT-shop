@@ -5,7 +5,6 @@ import stylesForProduct from '@/styles/product-list-item/index.module.scss'
 import styles from '@/styles/quick-view-modal/index.module.scss'
 import QuickViewModalSlider from './QuickViewModalSlider'
 import { useCartAction } from '@/hooks/useCartAction'
-import { useProductImages } from '@/hooks/useProductImages'
 import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
 import ProductColor from '../ProductsListItem/ProductColor'
 import ProductComposition from '../ProductsListItem/ProductComposition'
@@ -35,7 +34,6 @@ const QuickViewModal = () => {
         existingItem,
         count
     } = useCartAction()
-    const images = useProductImages(product)
 
     const {
         handleAddToComparison,
@@ -94,7 +92,7 @@ const QuickViewModal = () => {
                 />
             </div>
             <div className={styles.modal__left}>
-                <QuickViewModalSlider images={images} />
+                <QuickViewModalSlider images={product.images} />
             </div>
             <div className={styles.modal__right}>
                 <h3 className={styles.modal__right__title}>{product.name}</h3>

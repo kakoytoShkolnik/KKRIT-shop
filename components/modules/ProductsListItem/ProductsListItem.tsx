@@ -50,7 +50,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
         setIsAddToFavorites(false)
         addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
     }
-
+    
     return(
         <>
             {item.characteristics.collection === 'line' &&
@@ -69,7 +69,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
                         />
                         <div className={styles.list__item_ad__img}>
                             <Image
-                             src={item.images[0]}
+                             src={item.images[0].url}
                              alt={item.name}
                              width={224}
                              height={275}
@@ -78,13 +78,13 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
                         <p className={styles.list__item_ad__title}>
                             <span>
                                 {translations[lang].main_page.tShirt} «Line»{' '}
-                                {
+                                {/* {
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     //@ts-ignore
                                     translations[lang].main_page[
                                         item.images[0].split('/img/').join('').split('-')[0]
                                     ]
-                                }
+                                } */}
                             </span>
                             <span>{formatPrice(+item.price)} ₽</span>
                         </p>
@@ -148,7 +148,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
                      className={styles.list__item__img}
                     >
                         <Image 
-                         src={item.images[0]} 
+                         src={item.images[0].url} 
                          alt={item.name} 
                          fill
                         />

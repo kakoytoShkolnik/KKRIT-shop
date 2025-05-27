@@ -1,14 +1,12 @@
+import { IProduct } from "./common"
+
 export interface IProductPageProps {
     productId: string
     category: string
   }
   
   export interface IProductImagesItemProps {
-    image: {
-      src: string
-      alt: string
-      id: string
-    }
+    image: {url: string, desc: string}
     imgSize: number
   }
   

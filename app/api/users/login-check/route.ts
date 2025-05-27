@@ -6,6 +6,7 @@ import {
   parseJwt,
 } from '@/lib/utils/api-routes'
 import { IUser } from '@/types/user'
+import { corsHeaders } from '@/constants/corsHeaders'
 
 export async function GET(req: Request) {
   try {
@@ -16,7 +17,7 @@ export async function GET(req: Request) {
     )
 
     if (validatedTokenResult.status !== 200) {
-      return NextResponse.json(validatedTokenResult)
+      return NextResponse.json(validatedTokenResult, corsHeaders)
     }
 
     const user = (await findUserByEmail(
@@ -33,10 +34,14 @@ export async function GET(req: Request) {
         _id: user?._id,
         image: user.image,
       },
-    })
+    }, corsHeaders)
   } catch (error) {
     throw new Error((error as Error).message)
   }
 }
 
 export const dynamic = 'force-dynamic'
+
+export async function OPTIONS() {
+  return new NextResponse(null, {...corsHeaders, status: 200})
+}

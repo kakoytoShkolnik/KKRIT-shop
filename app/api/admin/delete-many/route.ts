@@ -4,17 +4,18 @@ import { getDbAndReqBody } from '@/lib/utils/api-routes'
 import { ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server'
 
-export async function GET(req: Request) {
+export async function DELETE(req: Request) {
   try {
     const { db } = await getDbAndReqBody(clientPromise, null)
     const url = new URL(req.url)
     const ids = url.searchParams.get('ids')
+    const collection = url.searchParams.get('category')
 
-    if (!ids) {
+    if (!ids || !collection) {
       return NextResponse.json(
         {
-          status: 404,
-          message: 'ids required',
+          status: 400,
+          message: 'bad request',
         },
         corsHeaders
       )
@@ -22,18 +23,11 @@ export async function GET(req: Request) {
 
     const parsedIds = JSON.parse(ids) as string[]
 
-    const deleteManyFromCollection = async (collection: string) => {
-      await db.collection(collection).deleteMany({
-        _id: {
-          $in: parsedIds.map((id) => new ObjectId(id)),
-        },
-      })
-    }
-
-    await Promise.allSettled([
-      deleteManyFromCollection('cloth'),
-      deleteManyFromCollection('accessories'),
-    ])
+    await db.collection(collection).deleteMany({
+      _id: {
+        $in: parsedIds.map((id) => new ObjectId(id)),
+      },
+    })
 
     return NextResponse.json(
       {
@@ -47,3 +41,7 @@ export async function GET(req: Request) {
 }
 
 export const dynamic = 'force-dynamic'
+
+export async function OPTIONS() {
+  return new NextResponse(null, {...corsHeaders, status: 200})
+}
