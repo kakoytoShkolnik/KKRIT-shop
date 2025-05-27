@@ -30,7 +30,7 @@ export const getNewAndBestsellerGoods = async (db: Db, fieldName: string) => {
       )
       .slice(0, 2),
     ...accessories
-      .filter((item) => item[fieldName] && !Object.values(item.sizes).length)
+      .filter((item) => item[fieldName] && Object.values(item.sizes).length)
       .slice(0, 2),
   ])
 }
