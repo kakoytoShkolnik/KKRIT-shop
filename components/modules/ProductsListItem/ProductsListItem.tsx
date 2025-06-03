@@ -28,6 +28,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
     const isTitleForNew = title === translations[lang].main_page.new_title
     const {addToCartSpinner, setAddToCartSpinner, currentCartByAuth} = useCartAction()
     const isProductInCart = isItemInList(currentCartByAuth, item._id)
+    
     const {
         addToFavoritesSpinner,
         isProductInFavorites,
@@ -50,6 +51,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
         setIsAddToFavorites(false)
         addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
     }
+    console.log(item.images);
     
     return(
         <>

@@ -12,7 +12,7 @@ const OrderCartItemTable = ({ item, position }: IOrderCartItemProps) => {
         <tr>
           <td className={styles.order__list__item__table__name}>
             <span>{position}.</span>
-            <Image src={item.image} alt={item.name} width={109} height={109} />
+            <Image src={item.image.url} alt={item.name} width={109} height={109} />
             <span>{item.name}</span>
           </td>
           <td className={styles.order__list__item__table__block}>

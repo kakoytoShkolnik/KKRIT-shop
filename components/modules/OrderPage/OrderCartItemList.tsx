@@ -14,7 +14,7 @@ const OrderCartItemList = ({ item, position }: IOrderCartItemProps) => {
                 {position}.
             </span>
             <div className={styles.order__list__item__list__item__img}>
-                <Image src={item.image} alt={item.name} width={156} height={156} />
+                <Image src={item.image.url} alt={item.name} width={156} height={156} />
             </div>
             <div className={styles.order__list__item__list__item__inner}>
                 <span className={styles.order__list__item__list__item__name}>

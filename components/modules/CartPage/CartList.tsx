@@ -17,7 +17,7 @@ const CartList = () => {
             {...basePropsForMotion}
             className={styles.cart__list__item}
           >
-            <CartListItem item={item}/>
+            <CartListItem key={item._id} item={item}/>
           </motion.li>
         ))}
       </AnimatePresence>

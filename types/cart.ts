@@ -5,7 +5,7 @@ export interface ICartItem {
     clientId: string
     userId: string
     productId: string
-    image: {url: string, desc: string}[]
+    image: {url: string, desc: string}
     name: string
     size: string
     count: string | number
@@ -14,6 +14,11 @@ export interface ICartItem {
     inStock: string
     color: string
     category: string
+}
+
+export interface IImage {
+  url: string
+  desc: string
 }
 
 export interface IAddProductToCartFx {

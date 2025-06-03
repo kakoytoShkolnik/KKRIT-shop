@@ -18,10 +18,15 @@ const CartListItem = ({ item }: { item: ICartItem }) => {
         setCount,
         handleDeleteCartItem,
     } = useCartItemAction(item)
+    //const imageUrl = getFirstImageUrl(item)
+    //console.log('imageUrl:', imageUrl)
     const isMedia530 = useMediaQuery(530)
     const imageSize = isMedia530 ? 132 : 160
-    console.log(item.image);
-    
+    // console.log('item:', item)
+    console.log('item.images:', item.image)
+    // console.log('typeof item.image:', typeof item.image)
+    // console.log('Array.isArray(item.image):', Array.isArray(item.image))
+
     return (
         <>
             <button
@@ -38,12 +43,13 @@ const CartListItem = ({ item }: { item: ICartItem }) => {
             <div
                 className={`${styles.cart__list__item__img} ${styles.cart__list__item__block}`}
             >
-                <Image
-                 src={item.image[0]?.url}
-                 alt={item.name}
-                 width={imageSize}
-                 height={imageSize}
-                />
+                
+                    <Image
+                        src={item.image.url}
+                        alt={item.name}
+                        width={imageSize}
+                        height={imageSize}
+                    />
             </div>
             <div className={styles.cart__list__item__wrapper}>
                 <div
