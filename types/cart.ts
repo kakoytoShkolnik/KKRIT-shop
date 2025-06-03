@@ -1,11 +1,11 @@
-import { IBaseEffectProps } from "./common"
+import { IBaseEffectProps} from "./common"
 
 export interface ICartItem {
     _id: string
     clientId: string
     userId: string
     productId: string
-    image: string
+    image: {url: string, desc: string}[]
     name: string
     size: string
     count: string | number
