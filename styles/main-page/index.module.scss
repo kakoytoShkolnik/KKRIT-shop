@@ -36,9 +36,9 @@
     overflow: hidden;
     position: absolute !important;
     // height: max-content;
-    top: 0;
+    top: 2;
     right: 0;
-    left: 245px;
+    left: 325px !important;
 
     @media (max-width: 1460px) {
       left: 0;
