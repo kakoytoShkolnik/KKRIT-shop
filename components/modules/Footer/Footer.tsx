@@ -14,7 +14,7 @@ const Footer = () => {
             <div className='footer__top'>
                 <div className='container footer__top__container'>
                     <div className='footer__logo'>
-                        <Logo />
+                        <img src="/img/Logos.svg" alt="KKRIT Logo"/>
                     </div>
                     <div className='footer__contacts'>
                         <span>

@@ -18,7 +18,7 @@ const MainPage = () => {
             <Categories />
             <NewGoods />
             <BestsellerGoods />
-            <BrandLife />
+            {/* <BrandLife /> */}
         </main>
     )
 }
