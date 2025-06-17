@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         },
         confirmation: {
           type: 'redirect',
-          return_url: 'https://kkrit-shop.vercel.app/payment-success',
+          return_url: 'https://kkrit-shop.onrender.com/payment-success',
         },
         capture: true,
         description: reqBody.description,
