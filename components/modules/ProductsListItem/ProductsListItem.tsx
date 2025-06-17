@@ -51,7 +51,7 @@ const ProductsListItem = ({ item, title }: IProductsListItemProps) => {
         setIsAddToFavorites(false)
         addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
     }
-    console.log(item.images);
+    //console.log(item.images);
     
     return(
         <>
